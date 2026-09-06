@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { Photo } from "../types/photo";
+import { uploadPhoto } from "../lib/photos";
 
 interface Props {
   open: boolean;
@@ -26,16 +27,12 @@ export function UploadModal({ open, onClose, onUpload }: Props) {
 
   if (!open) return null;
 
-  const handleUpload = () => {
+  const handleUpload = async () => {
     if (!file) return;
 
-    const photo: Photo = {
-      id: crypto.randomUUID(),
-      url: preview,
-      caption: caption || "A memory from our final year",
-      uploadedBy: "Anonymous",
-      createdAt: new Date().toISOString(),
-    };
+    const photo = await uploadPhoto(file, caption);
+
+    onUpload(photo);
 
     onUpload(photo);
 

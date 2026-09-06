@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Gallery } from "./components/Gallery";
 import { ImageModal } from "./components/ImageModal";
 import { UploadModal } from "./components/UploadModal";
-import { mockPhotos } from "./data/mockPhotos";
 import type { Photo } from "./types/photo";
+import { getPhotos } from "./lib/photos";
 
 function App() {
-  const [photos, setPhotos] = useState<Photo[]>(mockPhotos);
+  const [photos, setPhotos] = useState<Photo[]>([]);
   const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
   const [uploadOpen, setUploadOpen] = useState(false);
+
+  useEffect(() => {
+    getPhotos().then(setPhotos).catch(console.error);
+  }, []);
 
   const addPhoto = (photo: Photo) => {
     setPhotos((current) => [photo, ...current]);

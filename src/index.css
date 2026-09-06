@@ -44,6 +44,12 @@ button {
   height: 500px;
   border: 1px solid #cfc1ae;
   border-radius: 50%;
+  pointer-events: none;
+}
+
+.primary-button {
+  position: relative;
+  z-index: 1;
 }
 
 .hero-decoration {

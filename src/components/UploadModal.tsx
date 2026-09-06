@@ -12,6 +12,7 @@ export function UploadModal({ open, onClose, onUpload }: Props) {
   const [file, setFile] = useState<File | null>(null);
   const [caption, setCaption] = useState("");
   const [preview, setPreview] = useState("");
+  const [uploading, setUploading] = useState(false);
 
   useEffect(() => {
     if (!file) {
@@ -28,26 +29,32 @@ export function UploadModal({ open, onClose, onUpload }: Props) {
   if (!open) return null;
 
   const handleUpload = async () => {
-    if (!file) return;
+    if (!file || uploading) return;
 
-    const photo = await uploadPhoto(file, caption);
+    try {
+      setUploading(true);
 
-    onUpload(photo);
+      const photo = await uploadPhoto(file, caption);
 
-    onUpload(photo);
+      onUpload(photo);
 
-    setFile(null);
-    setCaption("");
-    onClose();
+      setFile(null);
+      setCaption("");
+      onClose();
+    } catch (error) {
+      console.error("Failed to upload photo:", error);
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
-    <div className="modal-backdrop" onClick={onClose}>
+    <div className="modal-backdrop" onClick={uploading ? undefined : onClose}>
       <div
         className="upload-modal"
         onClick={(event) => event.stopPropagation()}
       >
-        <button className="close-button" onClick={onClose}>
+        <button className="close-button" onClick={onClose} disabled={uploading}>
           ×
         </button>
 
@@ -57,7 +64,7 @@ export function UploadModal({ open, onClose, onUpload }: Props) {
           Leave something behind for everyone to remember.
         </p>
 
-        <label className="file-picker">
+        <label className={`file-picker ${uploading ? "disabled" : ""}`}>
           {preview ? (
             <img src={preview} alt="Preview" />
           ) : (
@@ -71,6 +78,7 @@ export function UploadModal({ open, onClose, onUpload }: Props) {
           <input
             type="file"
             accept="image/jpeg,image/png,image/webp"
+            disabled={uploading}
             onChange={(event) => setFile(event.target.files?.[0] ?? null)}
           />
         </label>
@@ -79,15 +87,23 @@ export function UploadModal({ open, onClose, onUpload }: Props) {
           className="caption-input"
           placeholder="Write a little something..."
           value={caption}
+          disabled={uploading}
           onChange={(event) => setCaption(event.target.value)}
         />
 
         <button
           className="upload-button"
-          disabled={!file}
+          disabled={!file || uploading}
           onClick={handleUpload}
         >
-          Add to our memories ✨
+          {uploading ? (
+            <>
+              <span className="spinner" />
+              Uploading...
+            </>
+          ) : (
+            "Add to our memories ✨"
+          )}
         </button>
       </div>
     </div>

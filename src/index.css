@@ -1,19 +1,50 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Playfair+Display:wght@400;500;600;700&display=swap");
 
 :root {
-  font-family: "DM Mono", monospace;
-  color: #302a27;
-  background: #f4eee4;
-  font-synthesis: none;
+  /* anchors */
+  --bg: #b3b3b3;
+  --ink: #2e4853;
+
+  /* ink ramp — used for text instead of opacity, so contrast stays readable on --bg.
+     note: against a mid grey, DARKER reads as quieter/secondary, not lighter. */
+  --ink-dark: #1c2f37;
+  --ink-mid: #24383f;
+  --ink-light: #587783;
+  --muted: #2a4149;
+
+  /* bg ramp — same grey family as --bg, no warm cream mixed in */
+  --bg-soft: #c2c2bf;
+  --bg-deep: #9c9c99;
+
+  /* surfaces — cool off-whites, all one family with --bg */
+  --paper: #e7e7e3;
+  --paper-light: #eeeeea;
+  --white: #f5f5f1;
+
+  --border: rgba(28, 47, 55, 0.22);
+  --shadow: rgba(28, 47, 55, 0.24);
 }
 
-* {
-  box-sizing: border-box;
+:root {
+  font-family: "DM Mono", monospace;
+  color: var(--ink-dark);
+  background: var(--bg);
+  font-synthesis: none;
 }
 
 body {
   margin: 0;
   min-width: 320px;
+  background: radial-gradient(
+    120% 140% at 50% 0%,
+    var(--bg-soft) 0%,
+    var(--bg) 45%,
+    var(--bg-deep) 100%
+  );
+}
+
+* {
+  box-sizing: border-box;
 }
 
 button,
@@ -42,7 +73,7 @@ button {
   position: absolute;
   width: 500px;
   height: 500px;
-  border: 1px solid #cfc1ae;
+  border: 1px solid var(--border);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -53,6 +84,7 @@ button {
 }
 
 .hero-decoration {
+  color: var(--ink);
   font-size: 24px;
   margin-bottom: 30px;
 }
@@ -61,7 +93,7 @@ button {
   font-size: 11px;
   letter-spacing: 3px;
   text-transform: uppercase;
-  opacity: 0.65;
+  color: var(--muted);
 }
 
 .hero h1 {
@@ -71,10 +103,12 @@ button {
   font-weight: 500;
   margin: 30px 0;
   position: relative;
+  color: var(--ink-dark);
 }
 
 .hero h1 span {
   font-style: italic;
+  color: var(--ink);
 }
 
 .hero-description {
@@ -82,16 +116,25 @@ button {
   line-height: 1.8;
   font-size: 13px;
   margin-bottom: 35px;
+  color: var(--ink-mid);
 }
 
 .primary-button,
 .upload-button {
   border: none;
-  background: #302a27;
-  color: #f4eee4;
+  background: var(--ink);
+  color: var(--white);
   padding: 15px 25px;
   border-radius: 50px;
-  transition: transform 0.2s;
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+
+.primary-button:hover,
+.upload-button:hover {
+  transform: translateY(-2px);
+  background: var(--ink-dark);
 }
 
 .upload-button {
@@ -105,8 +148,8 @@ button {
 .spinner {
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(244, 238, 228, 0.35);
-  border-top-color: #f4eee4;
+  border: 2px solid rgba(245, 245, 241, 0.35);
+  border-top-color: var(--white);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
@@ -120,12 +163,6 @@ button {
   to {
     transform: rotate(360deg);
   }
-}
-
-
-.primary-button:hover,
-.upload-button:hover {
-  transform: translateY(-2px);
 }
 
 .gallery-section {
@@ -146,11 +183,12 @@ button {
   font-size: clamp(40px, 6vw, 70px);
   font-weight: 500;
   margin: 5px 0 0;
+  color: var(--ink-dark);
 }
 
 .section-heading > span {
   font-size: 11px;
-  opacity: 0.6;
+  color: var(--muted);
 }
 
 .gallery {
@@ -195,9 +233,9 @@ button {
 }
 
 .photo-frame {
-  background: #fff;
+  background: var(--paper-light);
   padding: 9px 9px 12px;
-  box-shadow: 0 10px 30px rgba(40, 30, 20, 0.1);
+  box-shadow: 0 10px 30px var(--shadow);
 }
 
 .photo-frame img {
@@ -213,20 +251,21 @@ button {
 
 .photo-caption p {
   font-family: "Playfair Display", serif;
+  color: var(--ink-dark);
   font-size: 17px;
   margin: 0 0 6px;
 }
 
 .photo-caption span {
+  color: var(--muted);
   font-size: 10px;
-  opacity: 0.5;
 }
 
 footer {
   padding: 80px 20px;
   text-align: center;
   font-size: 11px;
-  opacity: 0.6;
+  color: var(--muted);
 }
 
 /* Modal */
@@ -234,7 +273,7 @@ footer {
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(30, 25, 20, 0.85);
+  background: rgba(28, 47, 55, 0.9);
   backdrop-filter: blur(8px);
   z-index: 100;
   display: flex;
@@ -257,7 +296,7 @@ footer {
 }
 
 .modal-caption {
-  color: white;
+  color: var(--white);
   padding-top: 15px;
 }
 
@@ -269,7 +308,7 @@ footer {
 
 .modal-caption span {
   font-size: 11px;
-  opacity: 0.6;
+  color: var(--bg-soft);
 }
 
 .close-button {
@@ -287,7 +326,8 @@ footer {
 
 .upload-modal {
   width: min(500px, 100%);
-  background: #f4eee4;
+  background: var(--white);
+  color: var(--ink-dark);
   padding: 40px;
   position: relative;
 }
@@ -296,16 +336,17 @@ footer {
   font-family: "Playfair Display", serif;
   font-size: 35px;
   margin: 0 0 8px;
+  color: var(--ink-dark);
 }
 
 .modal-subtitle {
   font-size: 11px;
-  opacity: 0.6;
+  color: var(--muted);
   margin-bottom: 25px;
 }
 
 .file-picker {
-  border: 1px dashed #b9aa96;
+  border: 1px dashed var(--ink-light);
   min-height: 280px;
   display: flex;
   align-items: center;
@@ -313,18 +354,22 @@ footer {
   flex-direction: column;
   cursor: pointer;
   overflow: hidden;
+  background: var(--paper-light);
+  color: var(--ink-mid);
 }
 
 .file-picker span {
   font-size: 35px;
+  color: var(--ink);
 }
 
 .file-picker strong {
   margin-top: 10px;
+  color: var(--ink-dark);
 }
 
 .file-picker small {
-  opacity: 0.5;
+  color: var(--muted);
   margin-top: 5px;
 }
 
@@ -341,8 +386,9 @@ footer {
 .caption-input {
   width: 100%;
   border: none;
-  border-bottom: 1px solid #b9aa96;
+  border-bottom: 1px solid var(--ink-light);
   background: transparent;
+  color: var(--ink-dark);
   padding: 18px 0;
   outline: none;
   margin-bottom: 20px;
@@ -384,4 +430,313 @@ footer {
   .upload-modal {
     padding: 25px;
   }
+}
+
+/* ==========================================================================
+   Likes, Albums, and Admin Styling
+   ========================================================================== */
+
+/* Like Button on Cards */
+.photo-frame {
+  position: relative;
+}
+
+.like-button {
+  position: absolute;
+  bottom: 18px;
+  right: 15px;
+  background: rgba(245, 245, 241, 0.92);
+  backdrop-filter: blur(6px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: var(--ink-dark);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  transition:
+    transform 0.2s,
+    background 0.2s,
+    color 0.2s;
+  box-shadow: 0 2px 8px rgba(28, 47, 55, 0.12);
+  z-index: 2;
+}
+
+.like-button:hover {
+  transform: scale(1.06);
+  background: var(--white);
+}
+
+.like-button.liked {
+  color: #c0392b;
+  border-color: rgba(192, 57, 43, 0.3);
+  background: #fff;
+}
+
+.like-icon {
+  font-size: 13px;
+  line-height: 1;
+}
+
+.like-count {
+  font-family: "DM Mono", monospace;
+  font-weight: 500;
+}
+
+/* Photo Delete Button (Admin Only) */
+.photo-delete-button {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(28, 47, 55, 0.85);
+  color: var(--white);
+  border: none;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+  z-index: 3;
+  transition:
+    background 0.2s,
+    transform 0.2s;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.photo-delete-button:hover {
+  background: #c0392b;
+  transform: scale(1.1);
+}
+
+/* Modal Caption & Delete */
+.modal-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 15px;
+}
+
+.modal-delete-button {
+  background: transparent;
+  border: 1px solid rgba(224, 75, 75, 0.5);
+  color: #ff7b72;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    background 0.2s,
+    color 0.2s;
+}
+
+.modal-delete-button:hover {
+  background: #c0392b;
+  color: var(--white);
+  border-color: #c0392b;
+}
+
+/* Admin Sticky Top Bar */
+.admin-bar {
+  position: sticky;
+  top: 0;
+  z-index: 150;
+  background: var(--ink-dark);
+  color: var(--white);
+  padding: 10px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 10px var(--shadow);
+  font-size: 12px;
+}
+
+.admin-badge {
+  font-weight: 500;
+  letter-spacing: 1px;
+  color: var(--paper-light);
+}
+
+.admin-bar-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-bar-actions button {
+  background: transparent;
+  border: 1px solid rgba(245, 245, 241, 0.3);
+  color: var(--white);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  transition:
+    background 0.2s,
+    border-color 0.2s;
+}
+
+.admin-bar-actions button:hover {
+  background: rgba(245, 245, 241, 0.15);
+  border-color: var(--white);
+}
+
+/* Album Filter Tabs */
+.album-tabs-container {
+  margin-bottom: 25px;
+}
+
+.album-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+}
+
+.album-tab {
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  color: var(--ink-mid);
+  padding: 7px 16px;
+  border-radius: 24px;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.album-tab:hover {
+  border-color: var(--ink-light);
+  color: var(--ink-dark);
+}
+
+.album-tab.active {
+  background: var(--ink);
+  color: var(--white);
+  border-color: var(--ink);
+}
+
+.create-album-tab-btn {
+  background: transparent;
+  border: 1px dashed var(--ink-light);
+  color: var(--ink-mid);
+  padding: 7px 16px;
+  border-radius: 24px;
+  font-size: 12px;
+  transition: all 0.2s;
+}
+
+.create-album-tab-btn:hover {
+  border-color: var(--ink);
+  color: var(--ink-dark);
+  background: rgba(46, 72, 83, 0.05);
+}
+
+/* Selected Album Banner */
+.album-banner {
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  padding: 18px 24px;
+  border-radius: 6px;
+  margin-bottom: 35px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(28, 47, 55, 0.06);
+}
+
+.album-banner-info h3 {
+  font-family: "Playfair Display", serif;
+  font-size: 22px;
+  margin: 0 0 4px;
+  color: var(--ink-dark);
+}
+
+.album-banner-info p {
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0;
+}
+
+.delete-album-btn {
+  background: transparent;
+  border: 1px solid rgba(192, 57, 43, 0.4);
+  color: #c0392b;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  transition: all 0.2s;
+}
+
+.delete-album-btn:hover {
+  background: #c0392b;
+  color: var(--white);
+}
+
+/* Empty State */
+.gallery-empty {
+  text-align: center;
+  padding: 80px 20px;
+  color: var(--muted);
+  font-size: 13px;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+}
+
+/* Upload Modal Album Selector */
+.album-select {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--ink-light);
+  background: transparent;
+  color: var(--ink-dark);
+  padding: 14px 0;
+  outline: none;
+  margin-bottom: 20px;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.album-select option {
+  background: var(--white);
+  color: var(--ink-dark);
+}
+
+/* Admin Login Link in Footer */
+.footer-admin {
+  margin-top: 12px;
+}
+
+.admin-login-link {
+  background: transparent;
+  border: none;
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0.65;
+  transition:
+    opacity 0.2s,
+    color 0.2s;
+  padding: 4px;
+}
+
+.admin-login-link:hover {
+  opacity: 1;
+  color: var(--ink-dark);
+}
+
+/* Form Error Banner */
+.admin-error {
+  background: rgba(192, 57, 43, 0.1);
+  color: #c0392b;
+  border: 1px solid rgba(192, 57, 43, 0.25);
+  padding: 10px 14px;
+  font-size: 11px;
+  border-radius: 4px;
+  margin-bottom: 18px;
 }

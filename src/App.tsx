@@ -28,7 +28,7 @@ function App() {
         <h1>
           Class of
           <br />
-          <span>2026</span>
+          <span>2028</span>
         </h1>
 
         <p className="hero-description">

@@ -192,8 +192,9 @@ button {
 }
 
 .gallery {
-  columns: 3 280px;
-  column-gap: 30px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
 }
 
 .photo-card {
@@ -202,10 +203,16 @@ button {
   border: none;
   background: transparent;
   padding: 0;
-  margin-bottom: 45px;
+  margin: 0;
   text-align: left;
-  break-inside: avoid;
+  cursor: pointer;
+  outline: none;
   transition: transform 0.3s ease;
+}
+
+.photo-card:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
 }
 
 .photo-card:hover {
@@ -403,32 +410,103 @@ footer {
   cursor: not-allowed;
 }
 
+@media (min-width: 601px) and (max-width: 960px) {
+  .gallery {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+}
+
 @media (max-width: 600px) {
   .hero {
     min-height: 70vh;
   }
 
   .gallery-section {
-    padding-top: 60px;
+    padding: 50px 14px 60px;
   }
 
   .section-heading {
     align-items: start;
     flex-direction: column;
     gap: 15px;
+    margin-bottom: 25px;
   }
 
   .gallery {
-    columns: 2 150px;
-    column-gap: 15px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 
   .photo-card {
-    margin-bottom: 25px;
+    margin-bottom: 0;
+  }
+
+  .photo-card-0 {
+    transform: rotate(-0.6deg);
+  }
+
+  .photo-card-1 {
+    transform: rotate(0.8deg);
+  }
+
+  .photo-card-2 {
+    transform: rotate(-0.5deg);
+  }
+
+  .photo-card-3 {
+    transform: rotate(0.6deg);
+  }
+
+  .photo-card-4 {
+    transform: rotate(-0.8deg);
+  }
+
+  .photo-frame {
+    padding: 6px 6px 10px;
+    box-shadow: 0 4px 16px var(--shadow);
+  }
+
+  .photo-caption {
+    padding: 8px 2px 4px;
+  }
+
+  .photo-caption p {
+    font-size: 13px;
+    line-height: 1.3;
+    margin: 0 0 3px;
+  }
+
+  .photo-caption span {
+    font-size: 9px;
+  }
+
+  .like-button {
+    bottom: 8px;
+    right: 8px;
+    padding: 3px 7px;
+    font-size: 10px;
+    gap: 3px;
+  }
+
+  .like-icon {
+    font-size: 11px;
+  }
+
+  .photo-delete-button {
+    top: 6px;
+    right: 6px;
+    width: 24px;
+    height: 24px;
+    font-size: 11px;
   }
 
   .upload-modal {
     padding: 25px;
+  }
+
+  footer {
+    padding: 50px 16px;
   }
 }
 

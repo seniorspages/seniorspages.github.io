@@ -818,3 +818,211 @@ footer {
   border-radius: 4px;
   margin-bottom: 18px;
 }
+
+/* ==========================================================================
+   Social Section & Badges (TikTok & Instagram)
+   ========================================================================== */
+
+.social-section {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px 24px;
+  text-align: center;
+  position: relative;
+}
+
+.social-heading {
+  margin-bottom: 35px;
+}
+
+.social-heading .eyebrow {
+  margin-bottom: 8px;
+}
+
+.social-heading h2 {
+  font-family: "Playfair Display", serif;
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 500;
+  margin: 0 0 10px;
+  color: var(--ink-dark);
+}
+
+.social-description {
+  font-size: 13px;
+  color: var(--ink-mid);
+  margin: 0 auto;
+  max-width: 460px;
+  line-height: 1.6;
+}
+
+.social-badges-grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 28px;
+  flex-wrap: wrap;
+}
+
+.social-badge-card {
+  position: relative;
+  background: var(--paper-light);
+  border: 1px solid var(--border);
+  padding: 20px 26px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  text-decoration: none;
+  color: var(--ink-dark);
+  box-shadow: 0 8px 24px var(--shadow);
+  transition:
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 0.25s ease,
+    border-color 0.2s;
+  min-width: 270px;
+  cursor: pointer;
+}
+
+/* Playful polaroid tilts */
+.social-badge-tiktok {
+  transform: rotate(-1.8deg);
+}
+
+.social-badge-instagram {
+  transform: rotate(1.8deg);
+}
+
+/* Scrapbook washi tape sticker strip at top of card */
+.social-badge-card::before {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 55px;
+  height: 15px;
+  background: rgba(245, 245, 241, 0.7);
+  border: 1px dashed rgba(28, 47, 55, 0.22);
+  border-radius: 2px;
+  backdrop-filter: blur(2px);
+  pointer-events: none;
+}
+
+.social-badge-card:hover {
+  transform: translateY(-6px) rotate(0deg) scale(1.02);
+  box-shadow: 0 16px 36px var(--shadow);
+  border-color: var(--ink);
+}
+
+.social-badge-icon-wrapper {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--ink-dark);
+  transition:
+    transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1),
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.2s ease;
+}
+
+.social-badge-card:hover .social-badge-icon-wrapper {
+  transform: scale(1.1);
+}
+
+/* TikTok hover theme */
+.social-badge-tiktok:hover .social-badge-icon-wrapper {
+  background: #000000;
+  color: #ffffff;
+  border-color: #000000;
+  box-shadow:
+    -2px 0 0 rgba(0, 242, 234, 0.6),
+    2px 0 0 rgba(255, 0, 79, 0.6);
+}
+
+/* Instagram hover theme */
+.social-badge-instagram:hover .social-badge-icon-wrapper {
+  background: radial-gradient(
+    circle at 30% 107%,
+    #fdf497 0%,
+    #fdf497 5%,
+    #fd5949 45%,
+    #d6249f 60%,
+    #285aeb 90%
+  );
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.social-badge-content {
+  text-align: left;
+  flex-grow: 1;
+}
+
+.social-badge-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.social-badge-title {
+  font-family: "Playfair Display", serif;
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--ink-dark);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.social-badge-arrow {
+  font-size: 14px;
+  color: var(--muted);
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+
+.social-badge-card:hover .social-badge-arrow {
+  transform: translate(2px, -2px);
+  color: var(--ink-dark);
+}
+
+.social-badge-tagline {
+  font-size: 11px;
+  color: var(--muted);
+  margin: 3px 0 0;
+  display: block;
+}
+
+.social-badge-handle {
+  display: inline-block;
+  font-family: "DM Mono", monospace;
+  font-size: 10px;
+  color: var(--ink);
+  background: rgba(46, 72, 83, 0.08);
+  padding: 2px 8px;
+  border-radius: 12px;
+  margin-top: 5px;
+}
+
+@media (max-width: 600px) {
+  .social-section {
+    padding: 10px 16px 50px;
+  }
+
+  .social-badges-grid {
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .social-badge-card {
+    width: 100%;
+    min-width: unset;
+  }
+}

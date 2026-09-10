@@ -5,6 +5,7 @@ import { UploadModal } from "./components/UploadModal";
 import { AdminLoginModal } from "./components/AdminLoginModal";
 import { CreateAlbumModal } from "./components/CreateAlbumModal";
 import { AdminBar } from "./components/AdminBar";
+import { SocialLinks } from "./components/SocialLinks";
 import type { Album, Photo } from "./types/photo";
 import { getPhotos, deletePhoto } from "./lib/photos";
 import { getAlbums, deleteAlbum } from "./lib/albums";
@@ -295,6 +296,9 @@ function App() {
           onDeletePhoto={handleDeletePhoto}
         />
       </section>
+
+      {/* Social Links (TikTok & Instagram) */}
+      <SocialLinks />
 
       <footer>
         <p>made with love by the Class of 2028 ♡</p>
